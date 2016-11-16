@@ -1,6 +1,6 @@
 <div class="box col-xs-10 col-xs-offset-1 text-center">
  
- <% if @place.latitude.present? && @place.longitude.present? %>
+ <!--<% if @place.latitude.present? && @place.longitude.present? %>-->
     <script>
       function initMap() {
         var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
@@ -21,7 +21,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9UoH_ACfC6U1UrzVYyO_B_GL
     </script>  
 
     <div id="map"></div><br/>
-  <% end %>
+  <!--<% end %>-->
 
   <br/>
  
