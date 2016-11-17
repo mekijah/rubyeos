@@ -38,4 +38,29 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9UoH_ACfC6U1UrzVYyO_B_GL
 <% end %>
 
 </div>
+ <div class="text-center clear">
+  <br/><br/>
+  <u><h2>Post your Comment</h2></u><br/>
+  <%= simple_form_for Comment.new, url: place_comments_path(@place) do |f| %>
+    <%= f.input :message %><br/>
+    <%= f.input :rating %>
+    <br/>
+    <%= f.submit "Add a Comment", class: 'btn btn-success' %>
+  <% end %>
+  </div>
+  <br/>
+  <% if !(@place.comments.empty?) %>
+  <div class="text-center clear">
+    <u><h1>Comments</h1></u><br/>
+    <% @place.comments.each do |comment| %>
+      <div class="col-sm-6 center-block">
+      <blockquote>
+        <b><%= comment.rating %></b> -
+        <%= comment.message %>
+        <small><%= comment.user.email %></small>
+      </blockquote>
+    </div>
+  <% end %><br/>
+</div>
+<% end %>
 </div>

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root 'places#index' 
   resources :places
+  resources :places do
+    resources :comments, only: :create
+end
   
 
 

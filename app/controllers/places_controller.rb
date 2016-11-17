@@ -39,6 +39,7 @@ class PlacesController < ApplicationController
     end
     
     before_action :authenticate_user!, only: [:new, :create]   
+    @comment = Comment.new
     
     private
     def place_params
