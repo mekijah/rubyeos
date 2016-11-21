@@ -1,49 +1,48 @@
 class PlacesController < ApplicationController
-    
-    def index
-        @places=Place.all
+  before_action :authenticate_user!, only: [:new, :create]
+  
+  def index
+    @places = Place.all
+  end
+  
+  def new
+    @places = Place.new
+  end
+  
+  def create
+    @places = current_user.places.create(place_params)
+    if @places.valid?
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
     end
-    
-    def new
-        @places=Place.new
-    end
-    
-    def create
-        @places = current_user.places.create(place_params)
-        if @places.valid?
-            redirect_to root_path
-        else
-            render :new, status: :unprocessable_entity
-        end
-        
-    end
-    
-    def show
+  end
+  
+  def show
     @place = Place.find(params[:id])
-    end
-    
-    def edit
+    @comment = Comment.new
+  end
+  
+  def edit
     @place = Place.find(params[:id])
-    end
-    
-    def update
+  end
+  
+  def update
     @place = Place.find(params[:id])
     @place.update_attributes(place_params)
     redirect_to root_path
-    end
-    
-    def destroy
+  end
+  
+  def destroy
     @place = Place.find(params[:id])
     @place.destroy
     redirect_to root_path
-    end
-    
-    before_action :authenticate_user!, only: [:new, :create]   
-    @comment = Comment.new
-    
-    private
-    def place_params
-        params.require(:place).permit(:name, :description, :address)
-    end
-end
+  end
 
+  private
+
+  def place_params
+    params.require(:place).permit(:name, :description, :address)
+  end
+  
+end
